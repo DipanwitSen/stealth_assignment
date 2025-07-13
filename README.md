@@ -35,6 +35,25 @@ It assigns team IDs using clustering, determines ball possession, and annotates 
 - `README.md`  
   ↳ Documentation and setup instructions  
 
+---
+
+### ⚠️ Known Limitations
+
+- **Color-based Team Differentiation**:  
+  Currently, team identification relies on unsupervised clustering (KMeans), which may **misclassify similar-colored jerseys** or shadows.
+  
+- **Player Number Identification**:  
+  Jersey numbers are not extracted (OCR not yet implemented), so **player IDs may shift** if tracking fails temporarily.
+
+- **Visual Overlaps**:  
+  When players are close or overlapping, **bounding boxes may be mismatched** due to occlusion or missed detections.
+
+- **Referee and Goalkeeper Confusion**:  
+  In rare cases, referees or goalkeepers might be incorrectly labeled as players if their uniform closely resembles that of a team.
+
+- **No Event Classification Yet**:  
+  The system does not currently detect passes, shots, or tackles — only object tracking and ball possession estimates.
+
 
 ## 📌 Introduction
 
