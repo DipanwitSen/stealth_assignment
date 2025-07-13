@@ -4,18 +4,19 @@ This project is a computer vision system that detects and tracks players, refere
 It assigns team IDs using clustering, determines ball possession, and annotates the video with rich analytics such as control percentage and speed.
 
 ## 📂 Project Structure
+
 soccer_tracking/
-├── main.py
-├── tracker.py
-├── video_utils.py
+├── main.py # Entry point to run the tracking pipeline
+├── tracker.py # Tracker class with detection, tracking, clustering, and annotation logic
+├── video_utils.py # Functions for reading and saving video frames
 ├── utils/
-│ └── bbox_utils.py
+│ └── bbox_utils.py # Utility functions for bounding box processing and distance calculation
 ├── model/
-│ └── best.pt
-├── input_video.mp4
-├── output_video.mp4
-├── requirements.txt
-└── README.md
+│ └── best.pt # Trained YOLOv8 model weights
+├── input_video.mp4 # Sample input soccer video
+├── output_video.mp4 # Processed output video with annotations
+├── requirements.txt # Python dependencies
+└── README.md # Documentation and setup instructions
 
 ## 📌 Introduction
 
