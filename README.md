@@ -91,14 +91,67 @@ This project focuses on **soccer analytics** using computer vision. The aim was 
 - Works well on short clips (~15–30 seconds)
 
 ---
+## 📚 References & Resources
+
+- [Ultralytics YOLOv8](https://github.com/ultralytics/ultralytics)  
+  State-of-the-art object detection framework used for detecting players, referees, balls, and goalkeepers.
+
+- [ByteTrack Tracker](https://github.com/ifzhang/ByteTrack)  
+  A high-performance multi-object tracker used to maintain consistent IDs across frames.
+
+- [Supervision Library by Roboflow](https://github.com/roboflow/supervision)  
+  Middleware to convert YOLO detections into a format compatible with ByteTrack and enable structured tracking.
+
+- [Scikit-learn KMeans Clustering](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html)  
+  Used to group detected players into 2 teams based on their movement patterns and locations.
+
+- [OpenCV](https://opencv.org/)  
+  Used for reading input video frames, drawing bounding boxes, shapes, and writing the output video.
+
+- **Video Dataset**:  
+  Public match footage from open-access platforms such as:  
+  - [FIFA Open Data](https://www.fifa.com/technical/football-technology/standards-and-data/data)  
+  - [YouTube Match Footage](https://www.youtube.com/results?search_query=soccer+match+full+game)
+
+📈 Performance Notes
+Processing time depends on the number of frames and batch size
+The closer the ball is to a player’s foot position, the more accurate the ball possession attribution
+KMeans works best with clearer team separation; jersey color-based team detection could be a future enhancement
+
+---------------
 
 ## 🚀 Future Improvements
 
-- Integrate **player jersey number OCR** to enhance identification
-- Use **LSTM or GRU-based ReID models** for more consistent player tracking
-- Add **action recognition** (e.g., pass, shot, tackle) using temporal CNNs
-- Enable real-time inference and dashboard integration
-- Extend support to full-match processing with automatic event tagging
+To further enhance the soccer analytics system, the following improvements can be considered:
+
+- **Integrate Player Jersey Number OCR**  
+  Use Optical Character Recognition (OCR) to extract jersey numbers from players for accurate and consistent identification, especially helpful during player substitutions or occlusions.
+
+- **Adopt Advanced Re-Identification Models**  
+  Replace clustering with LSTM or GRU-based ReID models to maintain player identity across longer temporal windows and occlusions.
+
+- **Incorporate Jersey Color-Based Team Classification**  
+  Improve team assignment accuracy by detecting dominant jersey colors instead of relying on unsupervised clustering methods.
+
+- **Add Action Recognition**  
+  Leverage temporal Convolutional Neural Networks (CNNs) or transformers to recognize high-level actions like passes, shots, tackles, and dribbles.
+
+- **Enable Real-Time Inference and Dashboard Integration**  
+  Optimize the pipeline for real-time analysis and visualize results live via a web-based dashboard using frameworks like Flask or FastAPI.
+
+- **Support Full-Match Video Processing with Event Tagging**  
+  Extend current short-clip support to full 90-minute matches, and auto-tag events like goals, fouls, substitutions, and corner kicks.
+
+- **Enhance Ball Possession Logic with Temporal Consistency**  
+  Use frame-wise historical tracking and context to more reliably infer which player controls the ball across time.
+
+- **Track Player Speed and Movement Patterns**  
+  Calculate speed by measuring positional change across frames, and visualize player heatmaps and movement trends.
+
+- **Export Analytics Results**  
+  Allow CSV export of statistics and generate visual plots (e.g., ball possession chart, player speed graph, pass network).
+
+These enhancements can greatly elevate the system from a basic tracker to a comprehensive sports analytics platform.
 
 ---
 
