@@ -5,18 +5,40 @@ It assigns team IDs using clustering, determines ball possession, and annotates 
 
 ## 📂 Project Structure
 
-soccer_tracking/
-├── main.py # Entry point to run the tracking pipeline
-├── tracker.py # Tracker class with detection, tracking, clustering, and annotation logic
-├── video_utils.py # Functions for reading and saving video frames
-├── utils/
-│ └── bbox_utils.py # Utility functions for bounding box processing and distance calculation
-├── models/
-│ └── best.pt # Trained YOLOv8 model weights
-├── input_video.mp4 # Sample input soccer video
-├── output_video.mp4 # Processed output video with annotations
-├── requirements.txt # Python dependencies
-└── README.md # Documentation and setup instructions
+## 📂 Project Structure
+
+## 📁 Project Structure
+
+- `main.py`  
+  ↳ Entry point to run the tracking pipeline  
+
+- `tracker.py`  
+  ↳ Tracker class with detection, tracking, clustering, and annotation logic  
+
+- `utils/`  
+  - `bbox_utils.py`  
+    ↳ Bounding box processing and distance calculation  
+  - `video_utils.py`  
+    ↳ Functions for reading and saving video frames  
+
+- `models/`  
+  - `best.pt`  
+    ↳ Trained YOLOv8 model weights  
+
+- `input_video/`  
+  - `test.mp4`  
+    ↳ Sample input soccer video  
+
+- `output_video/`  
+  - `test_output.mp4`  
+    ↳ Annotated output video  
+
+- `requirements.txt`  
+  ↳ Python dependencies  
+
+- `README.md`  
+  ↳ Documentation and setup instructions  
+
 
 ## 📌 Introduction
 
