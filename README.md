@@ -3,10 +3,6 @@
 This project is a computer vision system that detects and tracks players, referees, goalkeepers, and the ball in a soccer match video.
 It assigns team IDs using clustering, determines ball possession, and annotates the video with rich analytics such as control percentage and speed.
 
-## 📂 Project Structure
-
-## 📂 Project Structure
-
 ## 📁 Project Structure
 
 - `main.py`  
