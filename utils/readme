@@ -1,0 +1,116 @@
+video_utils.py:===========================================================
+
+🔹 read_video(video_path)
+Purpose:
+Reads all frames from a video file and stores them in a list.
+
+Step-by-step:
+cap = cv2.VideoCapture(video_path)
+Opens the video file using OpenCV.
+if not cap.isOpened(): ...
+Checks if the video was successfully opened.
+If not, it raises an error.
+frames = []
+Initializes an empty list to store each frame.
+while True:
+Starts reading the video frame-by-frame in a loop.
+ret, frame = cap.read()
+Reads the next frame.
+ret is False when there are no more frames to read.
+if not ret: break
+Breaks the loop when the video ends.
+frames.append(frame)
+Appends each read frame to the list.
+cap.release()
+Releases the video file from memory.
+return frames
+Returns the list of all frames.
+
+🔹 get_fourcc(extension)
+Purpose:
+Returns the correct codec (FOURCC) based on the video file format.
+
+Step-by-step:
+ext = extension.lower()
+Converts the file extension to lowercase for consistency.
+Checks the extension:
+.mp4 → uses mp4v codec
+.avi → uses XVID codec
+.mov → uses MJPG codec
+If the extension is not supported, it raises a ValueError.
+Returns:
+The correct FOURCC code for the output format, used later by cv2.VideoWriter.
+
+🔹 save_video(output_video_frames, output_video_path)
+Purpose:
+Saves a list of frames into a new video file.
+
+Step-by-step:
+if not output_video_frames: ...
+Raises an error if the list of frames is empty.
+extension = os.path.splitext(output_video_path)[-1]
+Extracts the file extension from the output path (e.g., .mp4).
+fourcc = get_fourcc(extension)
+Gets the correct FOURCC codec using the helper function.
+height, width = output_video_frames[0].shape[:2]
+Gets the resolution from the first frame.
+cv2.VideoWriter(...)
+Initializes the video writer with codec, frame rate (24 fps), and resolution.
+for frame in output_video_frames: out.write(frame)
+Writes each frame sequentially to the output video file.
+out.release()
+Closes and finalizes the output video file.
+
+bbox_utils.py:======================================================
+
+🔹 get_center_of_bbox(bbox: List[float]) -> Tuple[int, int]
+Purpose:
+Calculates the center point (x, y) of a bounding box.
+
+Steps:
+Takes in bbox as a list: [x1, y1, x2, y2].
+Computes the center:
+cx = (x1 + x2) / 2 (horizontal midpoint)
+cy = (y1 + y2) / 2 (vertical midpoint)
+Returns the center as (cx, cy).
+
+🔹 get_bbox_width(bbox: List[float]) -> int
+Purpose:
+Returns the width of a bounding box.
+
+Steps:
+Extracts the left (x1) and right (x2) x-coordinates.
+Calculates the width as x2 - x1.
+Returns the width as an integer.
+
+🔹 get_foot_position(bbox: List[float]) -> Tuple[int, int]
+Purpose:
+Gets the bottom-center (foot position) of a bounding box — useful in sports tracking.
+
+Steps:
+Extracts x1, x2, and y2 from the bounding box.
+Calculates x center as (x1 + x2) / 2, and y as the bottom coordinate y2.
+Returns the position as (center_x, y2).
+
+🔹 measure_distance(p1: Tuple[int, int], p2: Tuple[int, int]) -> float
+Purpose:
+Calculates the Euclidean distance between two 2D points.
+
+Steps:
+Takes two points p1 and p2, each as (x, y).
+Computes:
+Horizontal difference dx = p1[0] - p2[0]
+Vertical difference dy = p1[1] - p2[1]
+Applies the Euclidean formula: sqrt(dx² + dy²).
+Returns the distance as a float.
+
+🔹 measure_xy_distance(p1: Tuple[int, int], p2: Tuple[int, int]) -> Tuple[int, int]
+Purpose:
+Returns the x and y distance differences between two points (not Euclidean).
+
+Steps:
+Computes:
+dx = p1[0] - p2[0]
+dy = p1[1] - p2[1]
+Returns a tuple: (dx, dy).
+
