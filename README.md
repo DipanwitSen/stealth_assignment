@@ -1,4 +1,4 @@
-# ⚽ Soccer Video Analytics with Player Tracking, Team Clustering, and Ball Possession
+# ⚽ Football Video Analytics with Player Tracking, Team Clustering, and Ball Possession
 
 This project is a computer vision system that detects and tracks players, referees, goalkeepers, and the ball in a soccer match video.
 It assigns team IDs using clustering, determines ball possession, and annotates the video with rich analytics such as control percentage and speed.
@@ -16,6 +16,104 @@ soccer_tracking/
 ├── output_video.mp4
 ├── requirements.txt
 └── README.md
+
+
+# ⚽ Soccer Player & Ball Tracking with YOLOv8 and ByteTrack
+
+## 📌 Introduction
+
+This project focuses on **soccer analytics** using computer vision. The aim was to detect and track players, referees, goalkeepers, and the ball, and determine **ball possession and team control** across video frames. The system uses:
+- YOLOv8 for detection
+- ByteTrack for object tracking
+- KMeans for team clustering
+- OpenCV + custom logic for annotation and visualization
+
+---
+
+## 🧠 Approach and Methodology
+
+### 1. Detection:
+- YOLOv8 custom-trained on soccer classes (`player`, `referee`, `ball`, `goalkeeper`)
+- Batch inference across frames using Ultralytics API
+
+### 2. Tracking:
+- Supervision's ByteTrack used to associate detections across frames
+- Track IDs help identify the same object over time
+
+### 3. Team Assignment:
+- KMeans clustering used to assign players into **Team 1** and **Team 2** based on movement patterns
+
+### 4. Ball Possession:
+- Euclidean distance used between player foot position and ball center
+- Closest player is assumed to have possession
+
+### 5. Annotation:
+- Ellipses for players, triangles for the ball, rectangles for goalkeepers
+- Ball possession and control stats shown using overlays
+
+---
+
+## 🧪 Techniques Tried (with Results)
+
+### ✅ Successful Techniques
+
+| Technique | Outcome |
+|----------|---------|
+| YOLOv8 with Ultralytics | High-speed, accurate multi-class detection |
+| ByteTrack from Supervision | Robust multi-object tracking |
+| KMeans Clustering | Allowed distinguishing teams based on trajectory |
+| Distance-based ball possession | Efficient, interpretable results |
+| Annotated overlays | Clear visualization of player/team control |
+
+### ❌ Failed/Challenging Techniques
+
+| Attempted | Issue |
+|----------|-------|
+| Deep ReID/ResNet-based player identity | Model loading issues, large weight size |
+| Optical Flow for movement prediction | Overhead was too high for short clips |
+| Using embeddings for clustering | Not enough training data, too complex |
+
+---
+
+## ⚠️ Challenges Encountered
+
+- **Inconsistent tracking IDs** due to occlusion or misdetections
+- **Ball flickering** when it disappeared momentarily (solved with interpolation)
+- Difficulty in **distinguishing referees vs players** if color overlap exists
+- Tuning clustering and tracking hyperparameters was time-consuming
+- Large videos required **memory-efficient batch processing**
+
+---
+
+## ✅ Final Outcome
+
+- A complete system that:
+  - Detects and tracks soccer entities across frames
+  - Annotates frames with team identities and ball control
+  - Saves the result as a video with real-time overlays
+- Works well on short clips (~15–30 seconds)
+
+---
+
+## 🚀 Future Improvements
+
+- Integrate **player jersey number OCR** to enhance identification
+- Use **LSTM or GRU-based ReID models** for more consistent player tracking
+- Add **action recognition** (e.g., pass, shot, tackle) using temporal CNNs
+- Enable real-time inference and dashboard integration
+- Extend support to full-match processing with automatic event tagging
+
+---
+
+## 🛠️ Tools & Technologies Used
+
+- Python, OpenCV
+- Ultralytics YOLOv8
+- Supervision Library (ByteTrack)
+- Scikit-learn (KMeans)
+- VS Code / Jupyter Notebook
+
+---
 
 ## 🛠️ Features
 
@@ -75,18 +173,21 @@ from ultralytics import YOLO
 model = YOLO('yolov8n.pt')
 
 🧪 Running the Code
-1. Put Input Video
-Place your input video in the root directory and rename it as input_video.mp4 (or change it in main.py).
-2. Run from VS Code Terminal
-Open folder in VS Code and press Ctrl + ~ to open terminal.
-Run the script:
-python main.py
-3. Output
-output_video.mp4 → Annotated soccer video with:
-Tracked players and teams
-Ball position and possession
+```bash
+# Clone repo
+git clone https://github.com/DipanwitSen/stealth_assignment.git
+cd stealth_assignment
 
-Ball control stats in real time
+# Create environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the code
+python main.py --input video.mp4 --output annotated_video.mp4
+
 
 Console logs:
 Frame 12
@@ -116,10 +217,12 @@ scikit-learn
 ultralytics
 supervision
 
-📞 Contact
-For queries, contact
-gmail: 22052204@kiit.ac.in
-phone no:7439711097
+🔗 Author
+Dipanwita Sen
+GitHub: @DipanwitSen
+Email: 22052204@kiit.ac.in
+Project: stealth_assignment
+Year: 2025
 
 
 
