@@ -17,9 +17,6 @@ soccer_tracking/
 ├── requirements.txt
 └── README.md
 
-
-# ⚽ Soccer Player & Ball Tracking with YOLOv8 and ByteTrack
-
 ## 📌 Introduction
 
 This project focuses on **soccer analytics** using computer vision. The aim was to detect and track players, referees, goalkeepers, and the ball, and determine **ball possession and team control** across video frames. The system uses:
