@@ -11,7 +11,7 @@ soccer_tracking/
 ├── video_utils.py # Functions for reading and saving video frames
 ├── utils/
 │ └── bbox_utils.py # Utility functions for bounding box processing and distance calculation
-├── model/
+├── models/
 │ └── best.pt # Trained YOLOv8 model weights
 ├── input_video.mp4 # Sample input soccer video
 ├── output_video.mp4 # Processed output video with annotations
