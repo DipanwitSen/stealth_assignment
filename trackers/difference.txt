@@ -1,0 +1,60 @@
+🔄 Key Differences Between Tracker Versions
+The updated Tracker class introduces visual enhancements to improve the interpretability of soccer video analytics. 
+Unlike the original version, which only used shapes (ellipse, rectangle, triangle) to represent players, goalkeepers, referees, and the ball, the new version includes clear textual labels alongside these visual markers—for example, "Player", "Referee", "Goalkeeper", and "Ball"—directly rendered on the frames.
+These labels make it easier to identify object categories at a glance. Additionally, the updated draw_annotations method passes these labels explicitly, and the shape-drawing functions (draw_ellipse, draw_rectangle, and draw_triangle) have been modified to accept and display them.
+While the original version provided detailed console logs for frame-by-frame object statistics and ball proximity analysis, the newer version focuses more on visual clarity and presentation by reducing log verbosity.
+This makes the updated tracker ideal for producing annotated outputs suited for presentations, demonstrations, or model evaluation.
+
+🔧 Code Change – draw_ellipse()
+
+Original:
+def draw_ellipse(self, frame, bbox, color, track_id=None):
+    return frame
+    
+Updated:
+def draw_ellipse(self, frame, bbox, color, track_id=None, label="Player"):
+    cv2.putText(frame, label, (x_center - 30, y_top), cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
+    return frame
+    
+🔧 Code change for draw rectangle
+draw_rectangle()
+Original:
+def draw_rectangle(self, frame, bbox, color, track_id=None):
+    return frame
+    
+Updated:
+def draw_rectangle(self, frame, bbox, color, track_id=None, label="Goalkeeper"):
+    cv2.putText(frame, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
+    return frame
+    
+🔧 Code Change – draw_triangle()
+Original:
+def draw_triangle(self, frame, bbox, color):
+    return frame
+    
+Updated:
+def draw_triangle(self, frame, bbox, color, label="Ball"):
+    cv2.putText(frame, label, (x - 20, y - 30), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
+    return frame
+    
+2. Annotation Function Updated to Use Labels
+The draw_annotations() function was updated to pass these labels when drawing different tracked objects.
+
+🔧 Code Change – draw_annotations()
+Original:
+frame = self.draw_ellipse(frame, player['bbox'], color, track_id)
+...
+frame = self.draw_ellipse(frame, referee['bbox'], (0, 255, 255))
+frame = self.draw_rectangle(frame, keeper['bbox'], (255, 255, 255), track_id)
+frame = self.draw_triangle(frame, ball_data['bbox'], (255, 0, 255))
+
+Updated:
+frame = self.draw_ellipse(frame, player['bbox'], color, track_id, label="Player")
+...
+frame = self.draw_ellipse(frame, referee['bbox'], (0, 255, 255), label="Referee")
+frame = self.draw_rectangle(frame, keeper['bbox'], (255, 255, 255), track_id, label="Goalkeeper")
+frame = self.draw_triangle(frame, ball_data['bbox'], (255, 0, 255), label="Ball")
+
+3. Logging Adjustments (Optional)
+In the updated version, detailed per-frame logs (e.g., player-ball distances, counts) are optional and can be removed or kept based on use-case.
+The main focus has shifted to annotated visual outputs.    
